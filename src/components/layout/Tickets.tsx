@@ -6,12 +6,19 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { ToastContainer } from "react-toastify";
 
+interface ticketsType {
+   handleCard: (title: string) => void;
+  handleComplete: (title: string) => void;
+  progress:string[];
+  resolve:string[];
+}
+
 export default function Tickets({
   handleCard,
   handleComplete,
   progress,
   resolve,
-}) {
+}:ticketsType) {
   console.log(progress, resolve);
 
   return (
@@ -114,7 +121,7 @@ export default function Tickets({
                       variant={"default"}
                       size={"lg"}
                       onClick={() => handleComplete(item)}
-                      className="rounded bg-green-600"
+                      className="rounded bg-green-600 hover:cursor-pointer"
                     >
                       Complete
                     </Button>

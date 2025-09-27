@@ -1,15 +1,15 @@
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "../ui/card";
 
-// interface headerType{
-//   inProgress:string[];
-//   resolved:string[];
-// }
+interface headerType{
+  inProgress:number;
+  resolved:number;
+}
 
-export default function Header() {
+export default function Header({inProgress, resolved}:headerType) {
   const headerData: { title: string; value: number }[] = [
-    { title: "In Progress", value:0 },
-    { title: "Resolved", value:0 },
+    { title: "In Progress", value:inProgress },
+    { title: "Resolved", value:resolved },
   ];
   return (
     <header className="flex items-center justify-center gap-2 container m-auto mt-20 px-5">

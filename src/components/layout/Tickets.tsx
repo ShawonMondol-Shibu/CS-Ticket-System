@@ -4,27 +4,20 @@ import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 import data from "../../assets/data.json";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { toast, ToastContainer } from "react-toastify";
-import { useState } from "react";
-// import Header from "./Header";
+import { ToastContainer } from "react-toastify";
 
-export default function Tickets() {
-  const [progress, setProgress] = useState<string[]>([]);
-  const [resolve, setResolve] = useState<string[]>([]);
+export default function Tickets({
+  handleCard,
+  handleComplete,
+  progress,
+  resolve,
+}) {
+  console.log(progress, resolve);
 
-  const handleCard = (title: string) => {
-    toast(title);
-    setProgress([...progress, title]);
-    // return <Header inProgress={progress} resolved={resolve}/>
-  };
-
-  const handleComplete = (item: string) => {
-    setResolve([...resolve, item]);
-  };
   return (
     <main className="flex flex-wrap items-start justify-between gap-8 container m-auto my-20 px-5">
-      <ToastContainer />
       <section className="flex-3">
+        <ToastContainer />
         <h1 className="text-2xl font-semibold text-[#34485A] mb-4">
           {data.title}
         </h1>
@@ -99,28 +92,36 @@ export default function Tickets() {
           })}
         </div>
       </section>
+
+      {/* SideBar TaskBar */}
       <aside className="flex-1 space-y-10">
         {/* Task Status */}
         <div>
           <h1 className="text-2xl font-semibold text-[#34485A] mb-4">
             Task Status
           </h1>
-          <div>
-            {progress.map((item) => (
-              <Card key={item} className="border-none rounded ">
-                <CardContent className="grid gap-3">
-                  <h2>{item}</h2>
-                  <Button
-                    variant={"default"}
-                    size={"lg"}
-                    onClick={() => handleComplete(item)}
-                    className="rounded bg-green-600"
-                  >
-                    Complete
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="space-y-4">
+            {progress.length === 0 ? (
+              <span className="text-[#627382]">
+                Select a ticket to add to Task Status
+              </span>
+            ) : (
+              progress.map((item: string) => (
+                <Card key={item} className="border-none rounded ">
+                  <CardContent className="grid gap-3">
+                    <h2>{item}</h2>
+                    <Button
+                      variant={"default"}
+                      size={"lg"}
+                      onClick={() => handleComplete(item)}
+                      className="rounded bg-green-600"
+                    >
+                      Complete
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
 
@@ -129,12 +130,16 @@ export default function Tickets() {
           <h2 className="text-2xl font-semibold text-[#34485A] mb-4">
             Resolved Task
           </h2>
-          <div>
-            {resolve.map((item) => (
-              <Card key={item} className="border-none rounded bg-[#E0E7FF]">
-                <CardContent className="">{item}</CardContent>
-              </Card>
-            ))}
+          <div className="space-y-4">
+            {resolve.length === 0 ? (
+              <span className="text-[#627382]">No resolved tasks yet.</span>
+            ) : (
+              resolve.map((item: string) => (
+                <Card key={item} className="border-none rounded bg-[#E0E7FF]">
+                  <CardContent className="">{item}</CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </aside>

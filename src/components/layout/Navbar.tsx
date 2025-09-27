@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
+
 const navLink: { title: string; url: string }[] = [
   { title: "Home", url: "#" },
   { title: "FAQ", url: "#" },
@@ -14,11 +15,14 @@ const navLink: { title: string; url: string }[] = [
   { title: "Download", url: "#" },
   { title: "Contact", url: "#" },
 ];
+
 export default function Navbar() {
   return (
-    <nav className="flex items-center-safe justify-around bg-white ">
+    <nav className="flex items-center-safe justify-around bg-white sticky top-0 left-0">
       <div>
-        <span className="text-2xl font-bold text-[#130B2D]">CS — Ticket System</span>
+        <span className="text-2xl font-bold text-[#130B2D]">
+          CS — Ticket System
+        </span>
       </div>
       <NavigationMenu>
         <NavigationMenuList>
@@ -30,7 +34,16 @@ export default function Navbar() {
             </NavigationMenuItem>
           ))}
           <NavigationMenuItem>
-            <NavigationMenuLink> <Button variant={'default'} size={'lg'} className="bg-gradient-to-r from-[#632EE3] to-[#9F62F2] rounded text-white"><Plus color="white"/> New Ticket</Button> </NavigationMenuLink>
+            <NavigationMenuLink>
+              {" "}
+              <Button
+                variant={"default"}
+                size={"lg"}
+                className="bg-gradient-to-r from-[#632EE3] to-[#9F62F2] rounded text-white"
+              >
+                <Plus color="white" /> New Ticket
+              </Button>{" "}
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

@@ -2,14 +2,17 @@ import { Calendar, Circle } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 import data from "../../assets/data.json";
+import { Button } from "../ui/button";
 
 export default function Tickets() {
   console.log(data.tickets);
 
   return (
-    <main className="flex items-center gap-2 container m-auto mt-20 px-5">
-      <section className="flex-5">
-        <h1>{data.title}</h1>
+    <main className="flex flex-wrap items-start justify-between gap-8 container m-auto my-20 px-5">
+      <section className="flex-3">
+        <h1 className="text-2xl font-semibold text-[#34485A] mb-4">
+          {data.title}
+        </h1>
         <div className="grid grid-cols-2 flex-1/2 items-center gap-4">
           {data.tickets.map((item) => {
             const {
@@ -24,7 +27,7 @@ export default function Tickets() {
               date,
             } = item;
             return (
-              <Card key={ticket_id} className="rounded py-2">
+              <Card key={ticket_id} className="rounded py-2 border-none">
                 <CardContent className="px-3 space-y-2">
                   <div className="flex items-center justify-between">
                     <CardTitle>{title}</CardTitle>
@@ -42,7 +45,6 @@ export default function Tickets() {
                     </Badge>
                   </div>
                   <CardDescription>{description}</CardDescription>
-
                   <div className="flex items-center gap-2 justify-between text-sm text-[#627382]">
                     <div className="flex items-center gap-2 font-medium">
                       <span>{ticket_id}</span>
@@ -64,7 +66,40 @@ export default function Tickets() {
           })}
         </div>
       </section>
-      <aside className="flex-2"></aside>
+      <aside className="flex-1 space-y-10">
+        {/* Task Status */}
+        <div>
+          <h1 className="text-2xl font-semibold text-[#34485A] mb-4">
+            Task Status
+          </h1>
+          <div>
+            <Card className="border-none rounded ">
+              <CardContent className="grid gap-3">
+                <h2>Payment Failed - Card Declined</h2>
+                <Button
+                  variant={"default"}
+                  size={"lg"}
+                  className="rounded bg-green-600"
+                >
+                  Complete
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Resolved Task */}
+        <div>
+          <h2 className="text-2xl font-semibold text-[#34485A] mb-4">
+            Resolved Task
+          </h2>
+          <div>
+            <Card className="border-none rounded bg-[#E0E7FF]">
+              <CardContent className="">Incorrect Billing Address</CardContent>
+            </Card>
+          </div>
+        </div>
+      </aside>
     </main>
   );
 }

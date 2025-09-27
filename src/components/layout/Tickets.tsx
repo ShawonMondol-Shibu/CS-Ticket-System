@@ -4,12 +4,26 @@ import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 import data from "../../assets/data.json";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { toast, ToastContainer } from "react-toastify";
+import { useState } from "react";
+// import Header from "./Header";
 
 export default function Tickets() {
-  console.log(data.tickets);
+  const [progress, setProgress] = useState<string[]>([]);
+  const [resolve, setResolve] = useState<string[]>([]);
 
+  const handleCard = (title: string) => {
+    toast(title);
+    setProgress([...progress, title]);
+    // return <Header inProgress={progress} resolved={resolve}/>
+  };
+
+  const handleComplete = (item: string) => {
+    setResolve([...resolve, item]);
+  };
   return (
     <main className="flex flex-wrap items-start justify-between gap-8 container m-auto my-20 px-5">
+      <ToastContainer />
       <section className="flex-3">
         <h1 className="text-2xl font-semibold text-[#34485A] mb-4">
           {data.title}
@@ -21,14 +35,17 @@ export default function Tickets() {
               title,
               description,
               priority,
-
               status,
               status_color,
               customer_name,
               date,
             } = item;
             return (
-              <Card key={ticket_id} className="rounded py-2 border-none">
+              <Card
+                key={ticket_id}
+                onClick={() => handleCard(title)}
+                className="rounded py-2 border-none hover:cursor-pointer"
+              >
                 <CardContent className="px-3 space-y-2">
                   <div className="flex items-center justify-between">
                     <CardTitle>{title}</CardTitle>
@@ -89,18 +106,21 @@ export default function Tickets() {
             Task Status
           </h1>
           <div>
-            <Card className="border-none rounded ">
-              <CardContent className="grid gap-3">
-                <h2>Payment Failed - Card Declined</h2>
-                <Button
-                  variant={"default"}
-                  size={"lg"}
-                  className="rounded bg-green-600"
-                >
-                  Complete
-                </Button>
-              </CardContent>
-            </Card>
+            {progress.map((item) => (
+              <Card key={item} className="border-none rounded ">
+                <CardContent className="grid gap-3">
+                  <h2>{item}</h2>
+                  <Button
+                    variant={"default"}
+                    size={"lg"}
+                    onClick={() => handleComplete(item)}
+                    className="rounded bg-green-600"
+                  >
+                    Complete
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
 
@@ -110,9 +130,11 @@ export default function Tickets() {
             Resolved Task
           </h2>
           <div>
-            <Card className="border-none rounded bg-[#E0E7FF]">
-              <CardContent className="">Incorrect Billing Address</CardContent>
-            </Card>
+            {resolve.map((item) => (
+              <Card key={item} className="border-none rounded bg-[#E0E7FF]">
+                <CardContent className="">{item}</CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </aside>

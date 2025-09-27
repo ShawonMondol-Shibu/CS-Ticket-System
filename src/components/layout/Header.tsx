@@ -1,11 +1,16 @@
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "../ui/card";
-const headerData: { title: string; value: number }[] = [
-  { title: "In Progress", value: 0 },
-  { title: "Resolved", value: 0 },
-];
+
+// interface headerType{
+//   inProgress:string[];
+//   resolved:string[];
+// }
 
 export default function Header() {
+  const headerData: { title: string; value: number }[] = [
+    { title: "In Progress", value:0 },
+    { title: "Resolved", value:0 },
+  ];
   return (
     <header className="flex items-center justify-center gap-2 container m-auto mt-20 px-5">
       {headerData.map((item) => (

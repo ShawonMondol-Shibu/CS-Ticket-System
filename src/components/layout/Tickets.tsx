@@ -3,6 +3,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 import data from "../../assets/data.json";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 export default function Tickets() {
   console.log(data.tickets);
@@ -20,7 +21,7 @@ export default function Tickets() {
               title,
               description,
               priority,
-              priority_color,
+
               status,
               status_color,
               customer_name,
@@ -33,7 +34,14 @@ export default function Tickets() {
                     <CardTitle>{title}</CardTitle>
                     <Badge
                       variant={"secondary"}
-                      className={`bg-[${status_color}] px-2 py-1 rounded-full`}
+                      className={cn(
+                        `px-2 py-1 rounded-full`,
+                        status === "Open"
+                          ? "bg-green-500/30 text-green-900"
+                          : status === "In-Progress"
+                          ? "bg-yellow-300/40 text-yellow-900"
+                          : "bg-green-500/30 text-green-900"
+                      )}
                     >
                       {" "}
                       <Circle
@@ -48,7 +56,15 @@ export default function Tickets() {
                   <div className="flex items-center gap-2 justify-between text-sm text-[#627382]">
                     <div className="flex items-center gap-2 font-medium">
                       <span>{ticket_id}</span>
-                      <span className={`text-[${priority_color}]`}>
+                      <span
+                        className={cn(
+                          priority === "HIGH PRIORITY"
+                            ? " text-red-500"
+                            : priority === "MEDIUM PRIORITY"
+                            ? " text-yellow-500"
+                            : " text-green-600"
+                        )}
+                      >
                         {priority}
                       </span>
                     </div>
